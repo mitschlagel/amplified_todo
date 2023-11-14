@@ -18,6 +18,17 @@ import { withAuthenticator, useAuthenticator } from '@aws-amplify/ui-react-nativ
 
 Amplify.configure(awsExports);
 
+const userSelector = (context) => [context.user]
+
+  const SignOutButton = () => {
+    const { user, signOut } = useAuthenticator(userSelector);
+    return (
+      <Pressable onPress={signOut} style={styles.buttonContainer}>
+        <Text style={styles.buttonText}>Hello, {user.username}! Tap here to sign out.</Text>
+      </Pressable>
+    )
+  }
+
 const initialState = {name: '', description: ''};
 
 const App = () => {
@@ -54,16 +65,7 @@ const App = () => {
     }
   }
 
-  const userSelector = (context) => [context.user]
-
-  const SignOutButton = () => {
-    const { user, signOut } = useAuthenticator(userSelector);
-    return (
-      <Pressable onPress={signOut} style={styles.buttonContainer}>
-        <Text style={styles.buttonText}>Hello, {user.username}! Tap here to sign out.</Text>
-      </Pressable>
-    )
-  }
+  
 
   return (
     <SafeAreaView style={styles.container}>
